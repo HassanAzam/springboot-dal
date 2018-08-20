@@ -1,5 +1,7 @@
 package com.mha;
 
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class StudentDalApplicationTests {
 	private StudentRepository studentRepository;
 
 	@Test
-	public void contextLoads() {
+	public void testCreateStudent() {
 		Student student = new Student();
 		student.setCourse("Spring Framework");
 		student.setFee(30d);
@@ -26,6 +28,25 @@ public class StudentDalApplicationTests {
 		
 		studentRepository.save(student);
 		
+	}
+	
+	@Test
+	public void testFindStudentById() {
+		System.out.println(studentRepository.findById(1l));
+	}
+	
+	@Test
+	public void testUpdateStudent() {
+		Optional<Student> student = studentRepository.findById(1l);
+		Student st = student.get();
+		st.setFee(100d);
+		
+		studentRepository.save(st);
+	}
+	
+	@Test
+	public void testDeleteStudent() {
+		studentRepository.deleteById(1L);
 	}
 
 }
